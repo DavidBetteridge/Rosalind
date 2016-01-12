@@ -1,4 +1,4 @@
-﻿module roblem1
+﻿module Problem1
 
 let solve (dataset:string) : string =
     let result = dataset.ToCharArray()
