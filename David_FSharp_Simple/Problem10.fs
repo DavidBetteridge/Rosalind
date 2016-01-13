@@ -1,5 +1,4 @@
-﻿//module Problem10
-#if INTERACTIVE
+﻿#if INTERACTIVE
 #r "C:\\Compiler\\LogoTest\\packages\\FParsec.1.0.2\\lib\\net40-client\\FParsecCS.dll"
 #r "C:\\Compiler\\LogoTest\\packages\\FParsec.1.0.2\\lib\\net40-client\\FParsec.dll"
 #load "Utilities.fs"
@@ -20,11 +19,11 @@ let solve (filename:string) : string =
 
     let getCount = function
                    | None -> 0
-                   | Some(chr, cnt) -> cnt
+                   | Some(_, cnt) -> cnt
 
     let getLetter letter = 
              List.map (fun c -> c 
-                                |> List.tryFind (fun (chr,cnt) -> chr = letter )
+                                |> List.tryFind (fun (chr,_) -> chr = letter )
                                 |> getCount
                                 |> string)
              >> String.concat " "
