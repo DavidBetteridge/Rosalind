@@ -7,26 +7,7 @@
 module Problem5
 #endif
 
-open FParsec
-
-type Fasta =
-    {
-        Label : string
-        Dna : string
-    }
-
 let solve (filename:string) : string =
-    let loadFile (filename:string) : List<Fasta> = 
-    
-        let pID = (pstring ">Rosalind_" >>. manySatisfy isDigit ) |>> (fun d ->  "Rosalind_" + d)
-        let pDNA = manySatisfy (function | 'A' | 'T' | 'G' | 'C' -> true | _ -> false)
-        let pFasta = pipe2 (pID .>> newline) (many (pDNA .>> newline)) (fun label dnas -> {Fasta.Label = label; 
-                                                                                           Fasta.Dna = System.String.Concat dnas} )
-
-        match run (many pFasta) (System.IO.File.ReadAllText(filename)) with
-        | Success(result, _, _)   -> result
-        | Failure(errorMsg, _, _) -> failwith (sprintf "Parsing the file %s failed with the error %s" filename errorMsg)
-
     let result =
         loadFile filename
             |> List.map (fun fasta -> fasta, calculateGCContent fasta.Dna )
