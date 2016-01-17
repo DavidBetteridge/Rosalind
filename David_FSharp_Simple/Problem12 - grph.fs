@@ -10,13 +10,12 @@ open Utilities
 
 let solve (filename:string) (k:int) : string = 
     let fastas = loadFile filename 
-    let prefixes = fastas |> List.groupBy (fun f -> (f.Dna.[..(k-1)])) |> Map.ofList
+    let suffixes = fastas |> List.groupBy (fun f -> (f.Dna.[..(k-1)])) |> Map.ofList
     let directedEdges = fastas 
-                        |> List.map (fun f -> let (suffix, label) = (f.Dna.[(f.Dna.Length - k)..], f.Label)
-                                              prefixes.TryFind suffix 
-                                                  |> Option.map (fun matches -> matches
-                                                                                |> List.filter (fun m -> label <> m.Label)
-                                                                                |> List.map (fun m -> label + " " + m.Label)))
+                        |> List.map (fun t -> suffixes.TryFind (t.Dna.[(t.Dna.Length - k)..]) 
+                                                  |> Option.map (fun s -> s
+                                                                          |> List.filter (fun s -> t.Label <> s.Label)
+                                                                          |> List.map (fun s -> t.Label + " " + s.Label)))
                         |> List.choose id
                         |> List.collect id
                         |> String.concat "\n"
