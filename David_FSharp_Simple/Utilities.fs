@@ -20,6 +20,17 @@ let loadFile (filename:string) : List<Fasta> =
     | Success(result, _, _)   -> result
     | Failure(errorMsg, _, _) -> failwith (sprintf "Parsing the file %s failed with the error %s" filename errorMsg)
 
+let parseFasta (textVersion:string) : Fasta = 
+    let pID = pchar '>' >>. restOfLine true
+    let pDNA = manySatisfy isLetter
+    let pFasta = pipe2 pID (many (pDNA .>> newline)) (fun label dnas -> {Fasta.Label = label; 
+                                                                         Fasta.Dna = System.String.Concat dnas} )
+   
+    match run pFasta textVersion with
+    | Success(result, _, _)   -> result
+    | Failure(errorMsg, _, _) -> failwith (sprintf "Parsing the string %s failed with the error %s" textVersion errorMsg)
+
+
 let calculateGCContent (dna:string) : double =
     100.0 / (float dna.Length) *
     (dna |> Seq.sumBy (fun c -> if c = 'C' || c = 'G' then 1.0 else 0.0))

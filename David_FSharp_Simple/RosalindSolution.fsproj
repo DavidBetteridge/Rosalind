@@ -69,6 +69,7 @@
     <Compile Include="Problem12 - grph.fs" />
     <Compile Include="Problem13 - iev.fs" />
     <Compile Include="Problem14 - lcsm.fs" />
+    <Compile Include="Problem15 - lia.fs" />
     <Compile Include="Program.fs" />
     <None Include="App.config" />
   </ItemGroup>

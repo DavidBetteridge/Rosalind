@@ -3,9 +3,12 @@
 #if INTERACTIVE
 #r "C:\\Compiler\\LogoTest\\packages\\FParsec.1.0.2\\lib\\net40-client\\FParsecCS.dll"
 #r "C:\\Compiler\\LogoTest\\packages\\FParsec.1.0.2\\lib\\net40-client\\FParsec.dll"
+#load "Utilities.fs"
 #else
 module Problem5
 #endif
+
+open Utilities
 
 let solve (filename:string) : string =
     let result =

@@ -82,10 +82,38 @@ let solve (filename:string) = // : string =
         |> Seq.find (fun s -> rest |> List.exists (fun t -> not (t.Dna.Contains s)) |> not)
     answer
 
+//    // Load in our file
+//    let fastas = loadFile filename
+//
+//    let rec buildUpSubstrings (fastas:Fasta List) prefix : string list =
+//        match fastas |> List.tryFind(fun fasta -> not (fasta.Dna.Contains prefix)) with
+//        | None -> //All strings contain this prefix
+//                  let longerPrefixes =  ["A";"C";"G";"T"] |> List.collect (fun suffix -> (buildUpSubstrings fastas (prefix + suffix) ))
+//                  prefix :: longerPrefixes
+//        | Some(_) -> //We have a fasta which doesn't contain the prefix
+//                  []
+//
+//    
+//    let allSubstrings = [|"A";"C";"G";"T"|] |> Array.Parallel.collect (fun prefix -> (buildUpSubstrings fastas prefix) |> List.toArray)
+//    allSubstrings |> Array.sortByDescending (fun d -> d.Length) |> Array.head
+
+//solve "C:\CodeDojo\Rosalind\David_FSharp_Simple\Files\problem14_real.txt" 
 solve "C:\CodeDojo\Rosalind\David_FSharp_Simple\Files\problem14_real.txt" = "ACCCGAGACCGGCCCCCAAGTTTGAACGGCCGTGAGCCTAGCCGCAGCGGATTGGAGGCAGGATTGCGCTAGTAGTTACTGGAAGTAATTTGCAGCTCCAGGGTCAAGGAGACACAGCTACGAAATAGTCCCCCTTAGACCAGGCAGCCAACCCGCTAACCCTACGCGCGTTAACTCTTAGATTGAGCTGTTTACTTCCGCTATGTTTCGCTTTTTTAAATTGCCGACGGGCAGCGTAGCCAGTTCAGCGGATACATCACCGGTGCAAAGTACTACCATCACGATTTTTGTT"
 
 
 
+(*
+    Load file
+    Have a list of [A;C;G;T]   
+
+    In parallel
+    Is A in all strings,  yes
+        A add to results
+        Check for AA;AC;AG;AT
+
+
+
+*)
 
 
 
